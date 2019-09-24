@@ -32,9 +32,9 @@ fun Application.module(testing: Boolean = false) {
         }
 
         post("/match-text") {
-            val refStringArray = arrayOf("CompanyA", "CompanyB")
+            val deals = getDeals()
             var queriedText = call.receive<String>()
-            val (matchedLines,matchedCompanies) =  textMatcher(refStringArray,queriedText)
+            val (matchedLines, matchedCompanies) = textMatcher(deals, queriedText)
             call.respond(hashMapOf("matchedLines" to matchedLines , "matchedCompanies" to matchedCompanies))
         }
     }
