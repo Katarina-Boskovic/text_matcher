@@ -3,28 +3,6 @@ import kotlin.collections.*
 
 fun textMatcher(refStringArray: Array<String>, queriedText: String): Pair<List<String>, List<String>> {
 
-    /*val collector: MutableMap<String, MutableList<String>> = mutableMapOf()
-
-    val queriedLines = queriedText.lines()
-    for(i in 0 until queriedLines.size) {
-        for (j in 0 until refStringArray.size) {
-            if (queriedLines[i].contains(refStringArray[j])) {
-                if (queriedLines[i] in collector) {
-                    collector[queriedLines[i]]?.add(refStringArray[j])
-                }
-                else{
-                    collector[queriedLines[i]] = mutableListOf(refStringArray[j])
-                }
-            }
-        }
-    }
-
-    val matchedLines: MutableSet<String> = collector.keys
-    val matchedNames: MutableCollection<MutableList<String>> = collector.values
-    */
-
-
-
     val collector: MutableMap<Int, MutableMap<String, MutableList<String>>> = mutableMapOf()
     val queriedLines = queriedText.lines()
     for(i in 0 until queriedLines.size) {
@@ -49,14 +27,4 @@ fun textMatcher(refStringArray: Array<String>, queriedText: String): Pair<List<S
     val matchedNames = matchedData.map {x -> x.values.toList()[0].joinToString(separator = ",") }
 
     return Pair(matchedLines, matchedNames)
-}
-
-
-
-fun main(){
-    val refStringArray = arrayOf("CompanyA", "CompanyB")
-    val queriedText = "Sample text contains CompanyA\nhas 3 lines and contains\nCompanyB"
-    val (n, l) = textMatcher(refStringArray, queriedText)
-    println(n)
-    println(l)
 }

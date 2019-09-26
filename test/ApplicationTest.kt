@@ -8,18 +8,22 @@ import io.ktor.http.*
 import io.ktor.html.*
 import kotlinx.html.*
 import kotlinx.css.*
-import io.ktor.client.*
-import io.ktor.client.engine.apache.*
 import kotlin.test.*
 import io.ktor.server.testing.*
 
 class ApplicationTest {
     @Test
-    fun testRoot() {
+    fun testApplication() {
         withTestApplication({ module(testing = true) }) {
-            handleRequest(HttpMethod.Get, "/").apply {
+            handleRequest(HttpMethod.Post, "/match-text") {
+                addHeader(HttpHeaders.ContentType, ContentType.Application.FormUrlEncoded.toString())
+                setBody("Sample email contains Biscuit International SAS\r\nhas 3 lines and contains\r\nCompanyB in the text")
+            }.apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("HELLO WORLD!", response.content)
+                assertEquals(
+                    "{\"matchedCompanies\":[\"Biscuit International SAS\"],\"matchedLines\":[\"Sample email contains Biscuit International SAS\"]}",
+                    response.content
+                )
             }
         }
     }

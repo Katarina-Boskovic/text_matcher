@@ -42,5 +42,6 @@ dependencies {
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     implementation("io.ktor:ktor-jackson:$ktor_version")
     implementation ('com.beust:klaxon:5.0.1')
-    testCompile 'org.mock-server:mockserver-netty:5.3.0'
+    testCompile("io.ktor:ktor-client-mock:$ktor_version","io.ktor:ktor-client-mock-jvm:$ktor_version","io.ktor:ktor-client-mock-js:$ktor_version","io.ktor:ktor-client-mock-native:$ktor_version")
+    testCompile("io.ktor:ktor-server-test-host:$ktor_version")
 }
